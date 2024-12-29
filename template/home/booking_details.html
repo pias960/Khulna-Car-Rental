@@ -1,0 +1,151 @@
+{% include 'base/base.html' %}
+{% block home %}
+  <style>
+    body, h1, h2, h3, p, ul, li {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    body {
+        margin-top: 60px;
+        background-color: #4dd4a1;
+        padding: 20px;
+
+    }
+
+    /* Order Card Styles */
+    .order-card {
+        width: 100%;
+        max-width: 900px; /* Set maximum width */
+        margin: 0 auto; /* Center the card */
+        border: 2px dotted #7eb07ef0;
+        padding: 20px;
+        margin-bottom: 50px;
+        background-color: #bff1c663;
+        border-radius: 21px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Order Header Styles */
+    .order-header h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .order-header p {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    /* Order Details Styles */
+    .product-list {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 10px;
+    }
+
+    .product-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .product-item.subtotal, .product-item.total {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        .order-card {
+            width: 90%;
+        }
+
+        .product-item {
+            font-size: 14px;
+        }
+    }
+    .containerb{
+        margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="containerb">
+        {% for pias in bookings %}
+        <div class="order-card">
+            <!-- Order Header -->
+            <div class="order-header">
+                <h3>Order No: #{{ pias.id }}</h3>
+                <h4>{{ pias.car }}</h4>
+                <p>Date: {{ pias.booked_at}}</p>
+            </div>
+            <!-- End Order Header -->
+
+            <!-- Order Details -->
+            <div class="order-details">
+                <ul class="product-list">
+                    <!-- Product Items -->
+
+                    <!-- Subtotal -->
+                    <li class="product-item subtotal">
+                        <span class="product-name">pickup_location:</span>
+                        <span class="product-price">{{ pias.pickup_location | capfirst }}</span>
+                    </li>
+                    <li class="product-item subtotal">
+                        <span class="product-name">dropoff_location:</span>
+                        <span class="product-price">{{ pias.dropoff_location | capfirst }}</span>
+                    </li>
+                    <li class="product-item subtotal">
+                        <span class="product-name"> phone:</span>
+                        <span class="product-price">{{ pias.phone }}</span>
+                    </li>
+                    <!-- End Subtotal -->
+
+                    <!-- Shipping
+                    {% comment %} <li class="product-item">
+                        <span class="product-name">Shipping:</span>
+                        <span class="product-price">{{ shipping_cost }}</span>
+                    </li> {% endcomment %} -->
+                    <!-- End Shipping -->
+                    <li class="product-item total">
+                        <span class="product-name">price:</span>
+                        <span class="product-price">{{ pias.car.cost_par_day }}taka</span>
+                    </li>
+                    <li class="product-item total">
+                        <span class="product-name">Rent For:</span>
+                        <span class="product-price">{{ pias.num_days }}Days</span>
+                    </li>
+                    <p>-----------------------</p>
+                    <!-- Total -->
+                    <li class="product-item total">
+                        <span class="product-name">Total:</span>
+                        <span class="product-price">{{ pias.total_price }} Tk</span>
+                    </li>
+                    <!-- End Total -->
+                </ul>
+                <!-- PDF Download Button -->
+                <a href="{% url 'booking_pdf' pias.id %}" class="btn btn-primary">Download PDF</a>
+            </div>
+            <!-- End Order Details -->
+        </div>
+        {% endfor %}
+        {% if empty %}
+        <h1>No Orders</h1>
+        {% endif %}
+        </div>
+
+{% endblock home %}
+

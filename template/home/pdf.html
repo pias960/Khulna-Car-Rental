@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Details PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FAFAFA;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: #FFF;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, h4, p {
+            color: #333;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details h2 {
+            border-bottom: 1px solid #EEE;
+            padding-bottom: 10px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Details</h1>
+        <div class="details">
+            <h2>Order Information</h2>
+            <p><strong>Order No:</strong> {{ booking.id }}</p>
+            <p><strong>Date:</strong> {{ booking.booked_at }}</p>
+            <p><strong>Pickup Location:</strong> {{ booking.pickup_location }}</p>
+            <p><strong>Dropoff Location:</strong> {{ booking.dropoff_location }}</p>
+            <p><strong>Phone:</strong> {{ booking.phone }}</p>
+            <p><strong>Price:</strong> {{ booking.car.cost_par_day }} Taka</p>
+            <p><strong>Rent For:</strong> {{ booking.num_days }} Days</p>
+            <p><strong>Total:</strong> {{ booking.total_price }} Taka</p>
+        </div>
+        <div class="footer">
+            <p>Thank you for choosing our service!</p>
+        </div>
+    </div>
+</body>
+</html>
